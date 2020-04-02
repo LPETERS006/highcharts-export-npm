@@ -3,16 +3,18 @@ FROM node:10.7.0-alpine
 ENV ACCEPT_HIGHCHARTS_LICENSE="YES"
 USER root
 WORKDIR /root/
-RUN apk add --update make gcc g++ python git curl lzip wget ffmpeg libjpeg-turbo-dev libpng-dev libtool libgomp \
+RUN apk add --update --no-cache --allow-untrusted -f --clean-protected -u -l -q -v py-pip unzip make gcc g++ python git curl lzip wget ffmpeg libjpeg-turbo-dev libpng-dev libtool libgomp \
+	&& rm -rf /var/cache/apk/* \ 
 	&& curl -Ls "https://github.com/dustinblackman/phantomized/releases/download/2.1.1a/dockerized-phantomjs.tar.gz" | tar xz -C / \
-	&& apk add --update py-pip unzip \
+	&& wait \
 	&& ln -s `which nodejs` /usr/bin/node \
 	&& git clone https://github.com/highcharts/node-export-server \
 	&& cd node-export-server \
     	&& npm install \
-    	&& npm link 
+    	&& npm link \
+	&& rm -rf /tmp/*
 
-#COPY ["./fonts/*","/usr/share/fonts/truetype/"]
+COPY ["./fonts/*","/usr/share/fonts/truetype/"]
 WORKDIR /
 
 EXPOSE 8080
