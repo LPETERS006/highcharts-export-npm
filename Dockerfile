@@ -1,8 +1,9 @@
 FROM node:10.7.0-alpine
-ENV ACCEPT_HIGHCHARTS_LICENSE="YES"
+ENV ACCEPT_HIGHCHARTS_LICENSE="YES" \
+	PHANTOMJS_CDNURL="http://cnpmjs.org/downloads"
 USER root
 WORKDIR /root/
-RUN apk add --update make gcc g++ python git curl lzip wget ffmpeg libjpeg-turbo-dev libpng-dev libtool libgomp \
+RUN apk add --update make gcc g++ python git curl lzip wget ffmpeg libjpeg-turbo-dev libpng-dev libtool libgomp fontconfig\
 	&& curl -Ls "https://github.com/dustinblackman/phantomized/releases/download/2.1.1a/dockerized-phantomjs.tar.gz" | tar xz -C / \
 	&& apk add --update py-pip unzip \
 	&& wget "https://netix.dl.sourceforge.net/project/graphicsmagick/graphicsmagick/1.3.35/GraphicsMagick-1.3.35.tar.lz" \
@@ -24,12 +25,12 @@ RUN apk add --update make gcc g++ python git curl lzip wget ffmpeg libjpeg-turbo
 		--with-quantum-depth=16 \
     && make && make install \
     && cd .. && rm -rf GraphicsMagick-1.3.35 && rm GraphicsMagick-1.3.35.tar.lz \
-#	&& ln -s `which nodejs` /usr/bin/node \
+	&& rm -rf /usr/share/man /tmp/* /var/tmp/* /var/cache/apk/* /root/.npm /root/.node-gyp /usr/lib/node_modules/npm/man /usr/lib/node_modules/npm/doc /usr/lib/node_modules/npm/html \
 	&& git clone https://github.com/highcharts/node-export-server \
 	&& cd node-export-server \
-	&& echo 'phantomjs_cdnurl=https://cnpmjs.org/downloads' > .npmrc \
+	&& git checkout 8fc859afefabbeaf29800441084c3efc5e0e43fe \
     && npm install && npm link \
-	&& mkdir -p /usr/share/fonts/truetype/
+	&& mkdir -p /usr/share/fonts/truetype/	
 ADD https://github.com/ONSdigital/highcharts-export-docker/blob/master/fonts/OpenSans-Regular.ttf /usr/share/fonts/truetype/OpenSans-Regular.ttf
 ADD https://github.com/ONSdigital/highcharts-export-docker/blob/master/fonts/OpenSans-Light.ttf /usr/share/fonts/truetype/OpenSans-Light.ttf
 ADD https://github.com/ONSdigital/highcharts-export-docker/blob/master/fonts/OpenSans-Semibold.ttf /usr/share/fonts/truetype/OpenSans-Semibold.ttf
