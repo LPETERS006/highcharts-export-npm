@@ -26,20 +26,14 @@ RUN apk add --update make gcc g++ python git curl lzip wget ffmpeg libjpeg-turbo
 		--with-quantum-depth=16 \
     	&& make && make install \
     	&& cd .. && rm -rf GraphicsMagick-1.3.35 && rm GraphicsMagick-1.3.35.tar.lz \
-	&& rm -rf /usr/share/man /tmp/* /var/tmp/* /var/cache/apk/* /root/.npm /root/.node-gyp /usr/lib/node_modules/npm/man /usr/lib/node_modules/npm/doc /usr/lib/node_modules/npm/html \
 	&& yarn global add highcharts-export-server \
+	&& yarn global upgrade --latest \
+	&& rm -rf /usr/local/share/.cache/yarn/v1/* /tmp* /usr/share/man /tmp/* \
+		/var/tmp/* /var/cache/apk/* /root/.npm /root/.node-gyp /usr/lib/node_modules/npm/man \
+		/usr/lib/node_modules/npm/doc /usr/lib/node_modules/npm/html \
 	&& mkdir -p /usr/share/fonts/truetype/ 
 	
-ADD https://github.com/ONSdigital/highcharts-export-docker/blob/master/fonts/OpenSans-Regular.ttf /usr/share/fonts/truetype/OpenSans-Regular.ttf
-ADD https://github.com/ONSdigital/highcharts-export-docker/blob/master/fonts/OpenSans-Light.ttf /usr/share/fonts/truetype/OpenSans-Light.ttf
-ADD https://github.com/ONSdigital/highcharts-export-docker/blob/master/fonts/OpenSans-Semibold.ttf /usr/share/fonts/truetype/OpenSans-Semibold.ttf
-ADD https://github.com/ONSdigital/highcharts-export-docker/blob/master/fonts/OpenSans-Bold.ttf /usr/share/fonts/truetype/OpenSans-Bold.ttf
-ADD https://github.com/ONSdigital/highcharts-export-docker/blob/master/fonts/OpenSans-ExtraBold.ttf /usr/share/fonts/truetype/OpenSans-ExtraBold.ttf
-ADD https://github.com/ONSdigital/highcharts-export-docker/blob/master/fonts/OpenSans-Italic.ttf /usr/share/fonts/truetype/OpenSans-Italic.ttf
-ADD https://github.com/ONSdigital/highcharts-export-docker/blob/master/fonts/OpenSans-LightItalic.ttf /usr/share/fonts/truetype/OpenSans-LightItalic.ttf
-ADD https://github.com/ONSdigital/highcharts-export-docker/blob/master/fonts/OpenSans-BoldItalic.ttf /usr/share/fonts/truetype/OpenSans-BoldItalic.ttf
-ADD https://github.com/ONSdigital/highcharts-export-docker/blob/master/fonts/OpenSans-SemiboldItalic.ttf /usr/share/fonts/truetype/OpenSans-SemiboldItalic.ttf
-ADD https://github.com/ONSdigital/highcharts-export-docker/blob/master/fonts/OpenSans-ExtraBoldItalic.ttf /usr/share/fonts/truetype/OpenSans-ExtraBoldItalic.ttf	
+ADD https://github.com/ONSdigital/highcharts-export-docker/blob/master/fonts /usr/share/fonts/truetype	
 
 WORKDIR /
 EXPOSE 8080
