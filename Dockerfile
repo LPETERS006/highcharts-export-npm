@@ -1,7 +1,8 @@
 FROM node:10.7.0-alpine
 
 ENV ACCEPT_HIGHCHARTS_LICENSE="YES" \
-	PHANTOMJS_CDNURL="http://cnpmjs.org/downloads" 
+	PHANTOMJS_CDNURL="http://cnpmjs.org/downloads" \
+	HIGHCHARTS_EXPORT="/usr/share/export/"
 
 USER 0
 RUN apk add --update make gcc g++ python git curl lzip wget ffmpeg libjpeg-turbo-dev libpng-dev libtool libgomp fontconfig yarn \
@@ -31,10 +32,12 @@ RUN apk add --update make gcc g++ python git curl lzip wget ffmpeg libjpeg-turbo
 	&& rm -rf /usr/local/share/.cache/yarn/v1/* /tmp* /usr/share/man /tmp/* \
 		/var/tmp/* /var/cache/apk/* /root/.npm /root/.node-gyp /usr/lib/node_modules/npm/man \
 		/usr/lib/node_modules/npm/doc /usr/lib/node_modules/npm/html \
-	&& mkdir -p /usr/share/fonts/truetype/ 
+	&& mkdir -p /usr/share/fonts/truetype/ \
+	&& mkdir -p ${HIGHCHARTS_EXPORT}
 	
 ADD https://github.com/ONSdigital/highcharts-export-docker/blob/master/fonts /usr/share/fonts/truetype	
 
+VOLUME ${HIGHCHARTS_EXPORT}
 WORKDIR /
 EXPOSE 8080
-ENTRYPOINT ["highcharts-export-server", "--enableServer", "1", "--port", "8080", "--workers", "16"] 
+ENTRYPOINT ["highcharts-export-server", "--enableServer", "1", "--port", "8080", "--workers", "16"]
