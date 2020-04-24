@@ -1,8 +1,10 @@
 # highcharts-export-npm (highcharts-export-yarn :-)
 
 # docker-compose:
-  version: "3.7"
-  services:
+
+```
+  version: "3.7"    
+  services:         
     portainer:
       container_name: hc_export
       image: 'lpeters999/highcharts-export-npm:latest'
@@ -14,3 +16,4 @@
   volumes:
     hc_export:
       driver: local
+```
