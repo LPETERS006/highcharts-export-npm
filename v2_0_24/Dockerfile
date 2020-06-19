@@ -27,7 +27,7 @@ RUN apk add --no-cache --allow-untrusted -f  --force-broken-world --clean-protec
 		--with-quantum-depth=16 \
     	&& make && make install \
     	&& cd .. && rm -rf GraphicsMagick-1.3.35 && rm GraphicsMagick-1.3.35.tar.lz \
-	&& yarn global add highcharts-export-server@2.0.28 \
+	&& yarn global add highcharts-export-server@2.0.24 \
 	&& yarn global upgrade --latest \
 	&& apk del --no-cache --allow-untrusted -f  --force-broken-world --clean-protected -u -U -l -q -v --purge py-pip unzip apk-tools \
 		make gcc g++ python git lzip ffmpeg libjpeg-turbo-dev libpng-dev libtool libgomp \
