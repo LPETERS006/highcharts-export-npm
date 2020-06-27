@@ -1,5 +1,5 @@
 # highcharts-export-npm (highcharts-export-yarn :-)
-
+## latest = v2.0.28
 # docker-compose:
 
 ```
