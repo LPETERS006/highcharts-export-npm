@@ -38,7 +38,7 @@ RUN apk add --no-cache --allow-untrusted -f  --force-broken-world --clean-protec
 	&& mkdir -p /usr/share/fonts/truetype/ 
 	
 ADD https://github.com/ONSdigital/highcharts-export-docker/blob/master/fonts /usr/share/fonts/truetype	
-
+USER 1000
 WORKDIR /
 EXPOSE 8080
 ENTRYPOINT ["highcharts-export-server", "--enableServer", "1", "--port", "8080", "--workers", "16"] 
