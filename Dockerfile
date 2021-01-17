@@ -41,3 +41,4 @@ ADD https://github.com/ONSdigital/highcharts-export-docker/blob/master/fonts /us
 WORKDIR /
 EXPOSE 8080
 ENTRYPOINT ["highcharts-export-server", "--enableServer", "1", "--port", "8080", "--workers", "16"] 
+#
